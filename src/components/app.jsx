@@ -11,10 +11,17 @@ class App extends Component {
 
     this.state = {
       gifs: [],
-      selectedId: "4JnQEQNm2tlsI"
+      selectedId: "4JnQEQNm2tlsI",
+      searching: false
     };
 
     this.search("disney");
+  }
+
+  searching = (state) => {
+    this.setState({
+      searching: state
+    });
   }
 
   search = (querry) => {
@@ -36,12 +43,12 @@ class App extends Component {
   }
 
   render() {
-    const { gifs, selectedId } = this.state;
+    const { gifs, selectedId, searching } = this.state;
     return (
       <div>
         <div className="left-scene">
-          <SearchBar searchFunction={this.search} />
-          <div className="selected-gif">
+          <SearchBar searchFunction={this.search} searchingFunction={this.searching} />
+          <div className={`selected-gif  ${searching ? ' blur' : ''}`}>
             <Gif id={selectedId} />
           </div>
         </div>
